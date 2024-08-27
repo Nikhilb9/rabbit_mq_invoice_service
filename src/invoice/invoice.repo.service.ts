@@ -20,4 +20,13 @@ export class InvoiceRepositoryService {
   async getInvoice(id: string): Promise<IInvoiceSchema> {
     return this.invoiceModel.findById<IInvoiceSchema>(id).exec();
   }
+
+  async getTodaySales(startDate: string, endDate: string) {
+    return this.invoiceModel.find<IInvoiceSchema>({
+      date: {
+        $gte: startDate,
+        $lt: endDate,
+      },
+    });
+  }
 }
